@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/rivo/tview"
 	"log"
 	"os/exec"
+
+	"github.com/gdamore/tcell/v2"
+	"github.com/rivo/tview"
 )
 
 func main() {
@@ -13,14 +15,14 @@ func main() {
 		log.Fatal(err)
 	}
 	app := tview.NewApplication()
-	box := tview.NewFlex().
+	flex := tview.NewFlex().
 		AddItem(tview.NewBox().SetBorder(false), 0, 1, false).
 		AddItem(tview.NewFlex().SetDirection(tview.FlexRow).
 			AddItem(tview.NewBox().SetBorder(false), 0, 1, false).
 			AddItem(tview.NewBox().SetBorder(true).SetTitle(fmt.Sprintf("%s", out)), 0, 3, false).
 			AddItem(tview.NewBox().SetBorder(false), 5, 1, false), 0, 2, false).
 		AddItem(tview.NewBox().SetBorder(false), 0, 1, false)
-	if err := app.SetRoot(box, true).SetFocus(box).Run(); err != nil {
+	if err := app.SetRoot(flex, true).SetFocus(flex).Run(); err != nil {
 		panic(err)
 	}
 }
